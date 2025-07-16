@@ -1,12 +1,13 @@
-# Base image
-FROM node:18-alpine as build
+# Development Dockerfile for Logger Microservice
+FROM node:18-alpine
 
-# Set working directory
 WORKDIR /usr/src/app
 
-# Install dependencies
+# Copy package files
 COPY package*.json ./
-RUN npm install
+
+# Install dependencies
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
@@ -14,5 +15,5 @@ COPY . .
 # Expose the service port
 EXPOSE 3002
 
-# Run the application
+# Run the application in development mode
 CMD ["npm", "run", "start:dev"]
